@@ -1,0 +1,132 @@
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+.mat-dialog-content{
+  max-height: 90%!important;
+}
+.mat-button-toggle-label-content{
+  line-height: normal !important;
+}
+
+/* Primary Color */
+.mat-primary {
+  background-color: green;
+  color: white;
+}
+
+/* Secondary Color */
+.mat-form-field {
+  background-color: white;
+}
+
+/* Dialog Title */
+h3.mat-dialog-title {
+  font-size: 1.5rem;
+  color: green;
+  margin-bottom: 1rem;
+}
+
+/* Success Message */
+.bg-green-200 {
+  background-color: lightgreen;
+  color: darkgreen;
+}
+
+/* Dialog Content */
+div.mat-dialog-content {
+  padding: 2rem;
+}
+
+/* Form Field Labels */
+.mat-form-field-label {
+  color: green;
+}
+
+/* Input Styles */
+input.mat-input-element,
+mat-select:not([multiple]) .mat-select-value-text {
+  color: green;
+}
+
+/* Button Styles */
+button.mat-button {
+  background-color: green;
+  color: white;
+}
+
+button.mat-button.bg-gray-400 {
+  background-color: gray;
+  color: white;
+}
+
+button.mat-button.bg-blue-500 {
+  background-color: blue;
+  color: white;
+}
+
+/* Icon Styles */
+.mat-icon {
+  color: green;
+  cursor: pointer;
+}
+
+/* Separator Styles */
+hr {
+  border: none;
+  border-top: 1px solid green;
+  margin: 2rem 0;
+}
+
+/* Text Styles */
+p.font-bold {
+  font-weight: bold;
+  color: green;
+}
+
+p.font-normal {
+  font-weight: normal;
+  color: green;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-md {
+  font-size: 1.125rem;
+  color: green;
+}
+
+.text-lg {
+  font-size: 1.25rem;
+  color: green;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  color: green;
+}
+
+/* Toggle Button Styles */
+.mat-button-toggle-group {
+  color: green;
+}
+
+.mat-button-toggle {
+  color: white;
+}
+
+/* Error Styles */
+.mat-form-field-invalid .mat-form-field-label,
+.mat-form-field-invalid .mat-input-element {
+  color: red;
+}
+
+.mat-form-field-invalid .mat-select-value-text {
+  color: red !important;
+}
+

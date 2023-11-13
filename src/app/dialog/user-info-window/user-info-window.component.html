@@ -1,0 +1,49 @@
+<h2 class="capitalize">User {{ viewMode }} Dialog</h2>
+<ng-container *ngIf="viewMode==='edit'">
+  <div class="w-full mb-4">
+    <button (click)="resetPassword()" mat-button class="bg-gray-500 text-neutral-50">Reset Password</button>
+  </div>
+</ng-container>
+<hr />
+<div *ngIf="isReset" class="w-full bg-green-200 text-green-800 p-4 my-4">
+  Accounts New Password: <b>{{newPassword}}</b>
+</div>
+<mat-form-field class="w-1/2 px-2" appearance="fill">
+  <mat-label>Control Number</mat-label>
+  <input type="text" matInput [readonly]="viewMode!=='edit'" [(ngModel)]="formData.controlNumber">
+</mat-form-field>
+<mat-form-field class="w-1/2 px-2" appearance="fill">
+  <mat-label>Last Name</mat-label>
+  <input type="text" matInput [readonly]="viewMode!=='edit'" [(ngModel)]="formData.lastName">
+</mat-form-field>
+<mat-form-field class="w-1/2 px-2" appearance="fill">
+  <mat-label>First Name</mat-label>
+  <input type="text" matInput [readonly]="viewMode!=='edit'" [(ngModel)]="formData.firstName">
+</mat-form-field>
+<mat-form-field class="w-1/2 px-2" appearance="fill">
+  <mat-label>Middle Name</mat-label>
+  <input type="text" matInput [readonly]="viewMode!=='edit'" [(ngModel)]="formData.middleName">
+</mat-form-field>
+<mat-form-field class="w-1/2 px-2" appearance="fill">
+  <mat-label>Email</mat-label>
+  <input type="text" disabled="true" matInput [(ngModel)]="formData.email">
+</mat-form-field>
+<mat-form-field class="w-1/2 px-2" appearance="fill">
+  <mat-label>Mobile</mat-label>
+  <input type="text" matInput [readonly]="viewMode!=='edit'" [(ngModel)]="formData.mobile">
+</mat-form-field>
+<mat-form-field class="w-1/2 px-2" appearance="fill" *ngIf="viewMode!=='edit'">
+  <mat-label>Password</mat-label>
+  <input matInput placeholder="Password" [readonly]="viewMode!=='edit'" [type]="hide ? 'password' : 'text'"
+    [(ngModel)]="formData.password" required>
+  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+</mat-form-field>
+
+<div class="text-right">
+  <span class="mx-2">
+    <button class="bg-gray-500 text-neutral-50" mat-button (click)="dialogRef.close(null)">Close</button>
+  </span>
+  <span class="mx-2" *ngIf="viewMode === 'edit'">
+    <button *ngIf="formData.userType !=='Admin'" class="bg-blue-500 text-neutral-50" mat-button (click)="updateUserInfo()">Save</button>
+  </span>
+</div>

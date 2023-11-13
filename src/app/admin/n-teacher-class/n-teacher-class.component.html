@@ -1,0 +1,51 @@
+<app-admin-head></app-admin-head>
+<mat-drawer-container class="w-full h-screen">
+    <mat-drawer mode="side" opened>
+        <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="w-full p-8">
+            <h4 class="font-bolder" [routerLink]="['/admin/teacher']">Back to Listing</h4>
+            <h1> Subject Assign Details -  {{userFullName}}</h1>
+
+            <div class="w-full text-right text-italic px-8">Last Update: {{ lastUpdate | date:'full'}}</div>
+            <div class="flex flex-row">
+                <div class="w-full border">
+                    <table class="w-full p-8 border">
+                        <tr class="border bg-green-600 text-white">
+                            <td class="border p-4">Code</td>
+                            <td class="border p-4">Subject</td>
+                            <ng-container *ngFor="let gLevel of gradeLevels;let gIndex = index;">
+                                <td class="border bg-green-600 p-4"><mat-checkbox class="example-margin" color="secondary"
+                                    (change)="gradeUncheck($event.checked, gIndex)"
+                                    *ngIf="gIndex < 2"
+                                    [(ngModel)]="gLevel.isChecked"
+                                    class="disabled:bg-red-500"></mat-checkbox> Grade {{gLevel.gradeLevelName}} </td>
+                            </ng-container>
+                        </tr>
+                        <ng-container *ngFor="let nSubject of subjectData;let sIndex = index;">
+                            <tr class="border">
+                                <td class="border p-4">{{nSubject.subjectCode}}</td>
+                                <td class="border p-4">{{nSubject.subjectName}}</td>
+                                <ng-container *ngFor="let gLevel of nSubject?.gradeLevels;let cIndex = index;">
+                                  <td class="border p-4">
+                                    <section class="example-section">
+                                      <mat-checkbox color="primary" class="example-margin"
+                                                    [(ngModel)]="gLevel.isChecked"
+                                                    [disabled]="gLevel.disabled"></mat-checkbox>
+                                    </section>
+                                  </td>
+                                </ng-container>
+
+                            </tr>
+                        </ng-container>
+                    </table>
+                    <div class="w-full text-right p-8"> <button class="bg-green-400 text-white p-8"
+                            (click)="saveTeacherAssign()"mat-button>Save Assigned</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

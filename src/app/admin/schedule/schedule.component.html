@@ -1,0 +1,85 @@
+<app-admin-head></app-admin-head>
+<mat-drawer-container class="w-full h-screen">
+  <mat-drawer mode="side" opened>
+    <div class="h-full bg-green-800">
+      <app-admin-nav></app-admin-nav>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="w-80-h m-8">
+      <h1>Schedule</h1>
+      <div class="w-full flex">
+        <div class="flex w-1/3 gap-2">
+          <div class="w-1/3">
+            <button [routerLink]="['/admin/schedule-template','new']" class="p-2 w-full bg-green-600 text-white rounded">New Template</button>
+          </div>
+          <div class="w-1/3">
+            <button class="p-2 w-full bg-green-600 text-white rounded">Teacher</button>
+          </div>
+          <div class="w-1/3">
+            <button class="p-2 w-full bg-green-600 text-white rounded">Class</button>
+          </div>
+        </div>
+      </div>
+      <div class="flex w-full m-4 gap-2 ">
+        <div class="w-1/2 bg-gray-100 p-4">
+          <p class="text-lg">Class with No Schedule</p>
+          <div class="flex gap-2">
+            <div class="w-3/4">
+              <input type="text" (keyup)="nClassSearch($event)" [(ngModel)]="searchAvailable" [disabled]="unfilterAvailable.length === 0" class="p-2 disabled:bg-gray-200 border rounded bg-white w-full my-2" placeholder="Search Class">
+            </div>
+            <div class="w-1/4">
+              <select [(ngModel)]="searchBy" [disabled]="unfilterAvailable.length === 0" class="p-2 disabled:bg-gray-200 border rounded bg-white w-full my-2">
+                <ng-container *ngFor="let sel of selectedSearch;let ind = index">
+                  <option [value]="sel.id" [selected]="ind===0">{{sel.text}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <table class="w-full p-4">
+            <tr class="text-center">
+              <td class="border py-2"><b>Grade Level</b></td>
+              <td class="border"><b>Section</b></td>
+              <td class="border"><b>Adviser</b></td>
+              <td class="border"><b># Students</b></td>
+              <td class="border"><b>Action</b></td>
+            </tr>
+            <ng-container *ngFor="let avail of availableClass">
+              <tr>
+                <td class="border py-2">Grade {{avail.gradeLevelName}}</td>
+                <td class="border">{{avail.sectionName}}</td>
+                <td class="border">{{avail.adviserName}}</td>
+                <td class="border text-center">{{avail.students.length}}</td>
+                <td class="border px-2 text-center"><button [routerLink]="['/admin/schedule-create/', avail.id, 'new']" class="w-full text-white px-4 bg-green-800 rounded"> Create</button></td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+        <div class="w-1/2">
+          <p class="text-lg">Class with Schedule</p>
+          <table class="w-full p-4">
+            <tr class="text-center bg-green-800 text-white">
+              <td class="border py-2"><b>Grade Level</b></td>
+              <td class="border"><b>Section</b></td>
+              <td class="border"><b>Adviser</b></td>
+              <td class="border"><b># Students</b></td>
+              <td class="border"><b>Action</b></td>
+            </tr>
+            <ng-container *ngFor="let avail of scheduledClass">
+              <tr>
+                <td class="border py-2">Grade {{avail?.gradeLevelName}}</td>
+                <td class="border">{{avail?.sectionName}}</td>
+                <td class="border">{{avail?.adviserName}}</td>
+                <td class="border text-center">{{avail?.students?.length}}</td>
+                <td class="border px-2 text-center">
+                  <button class="w-full text-white px-4 bg-green-800 rounded my-2" [routerLink]="['/admin/schedule-create/', avail.id, 'edit']"> Edit</button>
+                  <button class="w-full text-white px-4 bg-green-200 rounded mb-2" [routerLink]="['/admin/schedule-create/', avail.id, 'view']"> View</button>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

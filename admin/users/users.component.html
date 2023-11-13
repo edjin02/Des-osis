@@ -1,0 +1,85 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+  <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+  </div>
+</mat-drawer>
+  <mat-drawer-content >
+    <!-- <div class="flex flex-wrap p-4">
+      <div class="grow px-4"><mat-card class="bg-blue-500 text-slate-50 text-xl"><mat-icon>groups</mat-icon> Total: {{total.length}}</mat-card></div>
+      <div class="grow px-4"><mat-card class="bg-blue-400 text-slate-50 text-xl"><mat-icon>person</mat-icon> Teachers: {{teachers.length}}</mat-card></div>
+      <div class="grow px-4"><mat-card class="bg-gray-500 text-slate-50 text-xl"><mat-icon>group</mat-icon> Students: {{students.length}}</mat-card></div>
+    </div> -->
+    <div class="m-12">
+      <h1>Users Module</h1>
+      <div class="my-4">
+        <button (click)="openDialog()" mat-button class="bg-blue-500 text-neutral-50 text-md"><mat-icon>add</mat-icon> New</button>
+        <span class="mx-4"><button (click)="uploader.click()" mat-button class="bg-green-300 text-neutral-50 text-md"><mat-icon>upload</mat-icon> Bulk Student</button></span>
+        <input
+            hidden
+            type="file"
+            #uploader
+            (change)="bulkStudentAdd($event)"
+        />
+      </div>
+      <mat-form-field class="w-full" appearance="standard">
+        <mat-label>Filter/Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+      <table mat-table matSort [dataSource]="getPaginatedData()" class="mat-elevation-z8">
+        <!-- table columns definition -->
+
+        <!-- table rows definition -->
+        <ng-container matColumnDef="#">
+
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ (currentPage * pageSize) + i + 1 }}</td>
+
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell sortActionDescription="Sort by number" *matHeaderCellDef> # </th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ (currentPage * pageSize) + i + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell mat-sort-header sortActionDescription="Sort by number" *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="userType">
+          <th mat-header-cell *matHeaderCellDef> User Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.userType}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Registered Date </th>
+          <td mat-cell *matCellDef="let element"> {{ dateFormat(element.createdOn) }} </td>
+        </ng-container>
+        <ng-container matColumnDef="gradeLevel">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{isNew(element.isNew)}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef><span class="mx-12"> Action</span> </th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container>
+              <span class="mx-1"><button mat-button class="bg-blue-500 text-slate-50" (click)="openInfo(element,'edit')">View/ Edit</button></span>
+            </ng-container>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <div class="pagination">
+        <button mat-button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
+        <button mat-button *ngFor="let page of getNumberOfPages(); let i = index" (click)="onPageChange(i)" [disabled]="currentPage === i">{{ i + 1 }}</button>
+        <button mat-button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === getNumberOfPages().length - 1">Next</button>
+      </div>
+
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,143 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <div class="h-full bg-green-800">
+      <app-admin-nav></app-admin-nav>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <h4 class="font-bolder w-1/6" [routerLink]="['/admin/room-assign']">Back to Listing</h4>
+      <p class="text-xl font-bold">Class Info</p>
+      <div class="w-full text-right p-2">
+        <button class="w-1/6 bg-blue-400 text-white rounded p-2" *ngIf="classLinkId!=='new'"
+          (click)="studentSubjDialog()">Add Student</button>
+      </div>
+      <div class="flex">
+        <div class="w-1/3">
+          <mat-form-field class="w-full px-2" appearance="fill">
+            <mat-label>Grade Level</mat-label>
+            <input [value]="'Grade '+classInfo?.gradeLevelName" readonly="true" matInput placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="w-1/3">
+          <mat-form-field class="w-full px-2" appearance="fill">
+            <mat-label>Section</mat-label>
+            <input [(ngModel)]="sectionName" name="sectionName" matInput placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="w-1/3">
+          <mat-form-field class="w-full px-2" appearance="fill">
+            <mat-label>Class Adviser</mat-label>
+            <mat-select [(ngModel)]="selectedAdviser" (selectionChange)="setAllClass($event)">
+              <mat-option *ngFor="let advise of classAdviser" [value]="advise.teacherId">{{advise.fullName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <table class="w-full">
+        <ng-container *ngFor="let subjects of activeGrades; let i = index">
+          <tr>
+            <td class="border px-2">{{subjects.subjectName}}</td>
+            <td class="p-2 border w-1/2">
+              <input class="border w-full bg-gray-100" [(ngModel)]="subjects.fullName" readonly="true" placeholder=""
+                (click)="openDialogAdvise(windowSubjectSelect, subjects, i, $event)">
+            </td>
+          </tr>
+        </ng-container>
+      </table>
+
+      <div class="row">
+        <div class="table-container">
+          <h2 class="table-label"></h2>
+          <table class="table" *ngIf="classLinkId !== 'new'">
+            <thead>
+              <tr>
+                <th>LRN</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Gender</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let student of addedStudentList">
+                <ng-container *ngIf="student.gender === 'Male'">
+                  <tr>
+                    <td>{{student.controlNumber}}</td>
+                    <td>{{student.lastName}}</td>
+                    <td>{{student.firstName}}</td>
+                    <td>{{student.gender}}</td>
+                    <td>
+                      <button class="profile-btn" (click)="openDialog(student)">Profile</button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-container">
+          <h2 class="table-label"></h2>
+          <table class="table" *ngIf="classLinkId !== 'new'">
+            <thead>
+              <tr>
+                <th>LRN</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Gender</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let student of addedStudentList">
+                <ng-container *ngIf="student.gender === 'Female'">
+                  <tr>
+                    <td>{{student.controlNumber}}</td>
+                    <td>{{student.lastName}}</td>
+                    <td>{{student.firstName}}</td>
+                    <td>{{student.gender}}</td>
+                    <td>
+                      <button class="profile-btn" (click)="openDialog(student)">Profile</button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="w-full text-right p-8">
+          <button mat-button class="text-lg bg-green-400 text-white"
+            [disabled]="sectionName === null || selectedAdviser === null" (click)="saveTeacherClass()">Save
+            Class</button>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+<ng-template #windowSubjectSelect>
+  <mat-dialog-content>
+    <div class="w-full text-right">
+      <button class="p-2 text-gray-500" (click)="dialog.closeAll()">Close</button>
+    </div>
+    <div class="w-full">
+      <table class="w-full">
+        <h3>Select Subject Teacher</h3>
+        <ng-container *ngFor="let emp of subjectAdvise">
+          <tr>
+            <td class="border">{{emp.fullName}}</td>
+            <td class="border text-center">
+              <button (click)="selectAdvise(emp)" class="bg-green-700 text-white p-2 w-full">Select</button>
+            </td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+  </mat-dialog-content>
+</ng-template>

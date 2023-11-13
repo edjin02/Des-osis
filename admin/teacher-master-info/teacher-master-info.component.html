@@ -1,0 +1,46 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <app-admin-nav></app-admin-nav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <ng-container *ngIf="pageLoading; else loaded">
+      <div class="grid place-content-center mt-40">
+        <div><mat-spinner></mat-spinner></div>
+      </div>
+    </ng-container>
+    <ng-template #loaded>
+    <div class="m-12">
+      <h1>Teacher Subject Info</h1>
+      <h2>{{teacherInfo?.lastName}}, {{teacherInfo?.firstName}}</h2>
+      <div class="my-4">
+        <button mat-button (click)="saveSubj()" class="bg-blue-500 text-slate-50 text-lg">Save Subjects</button>
+        <span class="mx-2"><button mat-button *ngIf="hasRecord" (click)="getGradeInfo()" class="bg-green-500 text-slate-50 text-lg">Edit</button></span>
+      </div>
+      <hr/>
+      <ng-container *ngFor="let grade of teacherSubj;let i = index">
+        <section class="w-1/2">
+          <mat-checkbox class="my-4 text-lg"
+          [checked]="grade.isChecked"
+          [indeterminate]="someComplete(i)"
+          color="primary"
+          (change)="setAll(i,$event.checked)"
+          > Grade {{ grade?.gradeLevelName }}</mat-checkbox>
+          <span class="example-list-section">
+            <ul>
+              <li class="pl-8" *ngFor="let infoSub of grade.subjects">
+                <mat-checkbox color="accent" [(ngModel)]="infoSub.isChecked" class="my-2" (ngModelChange)="updateAllComplete(i)">
+                  <b>{{infoSub.subjectCode}}</b> {{infoSub.subjectName}}
+                </mat-checkbox>
+              </li>
+            </ul>
+          </span>
+        </section>
+        <hr/>
+      </ng-container>
+
+    </div>
+  </ng-template>
+  </mat-drawer-content>
+</mat-drawer-container>

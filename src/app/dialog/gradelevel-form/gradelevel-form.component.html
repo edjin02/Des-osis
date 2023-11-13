@@ -1,0 +1,15 @@
+<form class="grade-form p-2">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Grade Level Name</mat-label>
+    <input [(ngModel)]="gradeLevelName" name="gradeLevelName" matInput placeholder="Roman Numeral">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Grade Level Description</mat-label>
+    <textarea [(ngModel)]="gradeLevelDesc" name="gradeLevelDesc" matInput placeholder="Ex. Grade Description"></textarea>
+  </mat-form-field>
+  <div class="my-2 text-right mr-4">
+    <button mat-button class="bg-blue-500 text-neutral-50" (click)="saveGrade()">Save</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </div>
+</form>

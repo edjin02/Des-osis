@@ -1,0 +1,48 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+  <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+  </div>
+</mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <h1>Subjects Module</h1>
+      <div class="my-4">
+        <button mat-button (click)="openForm()" class="bg-blue-500 text-neutral-50 text-md"><mat-icon>add</mat-icon> New</button>
+      </div>
+      <mat-form-field class="w-full" appearance="standard">
+        <mat-label>Filter/Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="subjectId">
+          <th mat-header-cell sortActionDescription="Sort by number" *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element;let i = index"> <small>{{i + 1}}</small> </td>
+        </ng-container>
+        <ng-container matColumnDef="subjectCode">
+          <th mat-header-cell *matHeaderCellDef> Subject Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.subjectCode}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subjectName">
+          <th mat-header-cell *matHeaderCellDef> Subject Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.subjectName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="gradeLevel">
+          <th mat-header-cell *matHeaderCellDef> Grade Level </th>
+          <td mat-cell *matCellDef="let element"> Grade {{element.gradeLevelName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="mx-2"><button mat-button class="bg-blue-500 text-neutral-50">View</button></span>
+            <span class="mx-2"><button mat-button class="bg-gray-400 text-neutral-50">Edit </button></span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

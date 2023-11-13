@@ -1,0 +1,92 @@
+<app-admin-head></app-admin-head>
+<mat-drawer-container class="w-full h-screen">
+    <mat-drawer mode="side" opened>
+        <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="w-80-h m-8">
+            <h1>Schedule Template</h1>
+            <div class="w-full flex">
+                <div class="flex w-1/6 gap-2">
+                    <div class="w-full">
+                        <button [routerLink]="['/admin/schedule-template','new']"
+                            class="p-2 w-full bg-green-600 text-white rounded">Create Template</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full mt-4">
+                <small>*You cannot delete/disabled a template if list is less than 3</small>
+                <table class="w-full m-4">
+                    <tr class="text-center bg-green-800 text-white">
+                        <td class="border p-2">#</td>
+                        <td class="border p-2">Template Name</td>
+                        <td class="border p-2">Status</td>
+                        <td class="border p-2">Action</td>
+                    </tr>
+                    <ng-container *ngFor="let tList of templateList;let i=index">
+                        <tr class="p-2 text-center">
+                            <td class="border">{{i + 1}}</td>
+                            <td class="border font-bold">{{tList.tempName}}</td>
+                            <td class="border">{{tList.isActive === true ? 'Active':'Inactive'}}</td>
+                            <td class="border w-1/4">
+                                <ng-container *ngIf="tList.isActive;else invalid">
+                                    <button [disabled]="templateList.length < 2"
+                                        class="w-1/4 bg-red-400 px-2 rounded text-white disabled:bg-gray-400"
+                                        (click)="setInactiveState(tList)">Deactivate</button>
+                                </ng-container>
+                                <ng-template #invalid>
+                                    <button [disabled]="templateList.length < 2"
+                                        class="w-1/4 bg-green-400 px-2 rounded text-white disabled:bg-gray-400"
+                                        (click)="setInactiveState(tList)">Activate</button>
+                                </ng-template>
+                                <button class="w-1/4 bg-blue-400 px-2 mx-2 rounded text-white"
+                                    (click)="viewTemp(modalInfo,tList)">View</button>
+                                <button class="w-1/4 bg-gray-400 px-2 rounded text-white"
+                                [disabled]="templateList.length < 3" (click)="delTemp(deleteMe,tList.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+<ng-template #modalInfo>
+    <mat-dialog-content>
+        <div class="w-full">
+            <h3>{{tempDetails.tempName}}</h3>
+            <table class="w-full">
+                <tr>
+                    <td class="border bg-green-700 text-white p-2">TIME</td>
+                    <td class="border bg-green-700 text-white p-2">MON</td>
+                    <td class="border bg-green-700 text-white p-2">TUE</td>
+                    <td class="border bg-green-700 text-white p-2">WED</td>
+                    <td class="border bg-green-700 text-white p-2">THU</td>
+                    <td class="border bg-green-700 text-white p-2">FRI</td>
+                </tr>
+                <ng-container *ngFor="let tList of tempRow">
+                    <tr>
+                        <td class="border">{{tList?.timeFrom}} - {{tList?.timeTo}}</td>
+                        <td class="border"></td>
+                        <td class="border"></td>
+                        <td class="border"></td>
+                        <td class="border"></td>
+                        <td class="border"></td>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
+    </mat-dialog-content>
+</ng-template>
+<ng-template #deleteMe>
+    <mat-dialog-content>
+        <div class="w-full p-4 text-center">
+            Do you want to continue action?
+        </div>
+        <div class="w-full text-center">
+            <button class="w-1/3 text-white bg-green-400 p-2 mx-2">Yes</button>
+            <button class="w-1/3 text-white bg-red-400 p-2 " (click)="dialog.closeAll()">No</button>
+        </div>
+    </mat-dialog-content>
+</ng-template>

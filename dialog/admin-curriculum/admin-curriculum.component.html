@@ -1,0 +1,96 @@
+<div class="w-full text-right">
+    <button (click)="dialogRef.close(null)"><mat-icon>close</mat-icon></button>
+</div>
+<div class="flex w-full p-2">
+    <div class="w-3/4">
+        <h1>Curriculum Form</h1>
+    </div>
+</div>
+<div class="flex">
+    <div class="flex w-1/4">
+        <mat-form-field class="w-full" appearance="standard">
+            <mat-label>Curriculum Code</mat-label>
+            <input matInput placeholder="" [(ngModel)]="curriculumCode" #input>
+        </mat-form-field>
+    </div>
+
+    <div class="flex w-1/4">
+        <mat-form-field class="w-full px-2" appearance="fill">
+            <mat-label>From</mat-label>
+            <mat-select [(ngModel)]="selectedFrom" (selectionChange)="addtoYear()">
+                <ng-container *ngFor="let sys of schoolFrom">
+                    <mat-option [value]="sys">{{sys}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-full px-2" appearance="fill">
+            <mat-label>To</mat-label>
+            <mat-select [disabled]="schoolTo.length === 0" [(ngModel)]="selectedTo" (selectionChange)="getSubjects()">
+                <ng-container *ngFor="let sys of schoolTo">
+                    <mat-option [value]="sys">{{sys}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="w-1/4">
+    </div>
+    <div class="w-1/4">
+        <button mat-button class="w-full bg-green-800 text-white text-md" [disabled]="curriculumCode === null" (click)="saveCurriculum()">Save Curriculum
+        </button>
+    </div>
+</div>
+
+<div class="flex flex-row">
+    <div class="w-full border" *ngIf="isGenerated">
+        <h3 class="font-bolder pt-3 px-4">Add Subject</h3>
+        <div class="m-4 w-full flex">
+            <div class="mx-2 w-1/4 gap-1">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Subject Code</mat-label>
+                    <input matInput [(ngModel)]="newSubjectField" type="text">
+                </mat-form-field>
+            </div>
+            <div class="mx-2 w-1/4 gap-1">
+                <mat-form-field  appearance="fill" class="w-full">
+                    <mat-label>Subject Name</mat-label>
+                    <input matInput [(ngModel)]="newCodeField" type="text">
+                </mat-form-field>
+            </div>
+            <div class="mx-2 w-1/4 gap-1">
+                <button mat-button class="bg-green-600 text-white w-3/4" (click)="addSubj()">Add</button>
+            </div>
+        </div>
+        <table class="w-full p-8 border">
+            <tr class="border bg-green-600 text-white">
+                <td class="border p-4"></td>
+                <td class="border p-4">Code</td>
+                <td class="border p-4">Subject</td>
+                <td class="border p-4"></td>
+                <ng-container *ngFor="let gLevel of gradeLevels;">
+                    <td class="border bg-green-600 p-4">Grade {{gLevel.gradeLevelName}}</td>
+                </ng-container>
+            </tr>
+            <ng-container *ngFor="let nSubject of nSubjectListing;let sIndex = index;">
+                <tr class="border">
+                    <td class="border p-2">
+                        <button class="px-2 text-red-400" (click)="removeSubject(sIndex)"><mat-icon>close</mat-icon></button>
+                    </td>
+                    <td class="border p-4">{{nSubject.subjectCode}}</td>
+                    <td class="border p-4">{{nSubject.subjectName}}</td>
+                    <td class="border p-2"><mat-checkbox class="example-margin" color="primary"
+                            [checked]="nSubject.isChecked"
+                            (change)="checkUncheck($event.checked, sIndex)"></mat-checkbox> All</td>
+
+                    <ng-container *ngFor="let gLevel of nSubject.gradeLevels;let cIndex = index;">
+                        <td class="border p-4">
+                            <section class="example-section">
+                                <mat-checkbox color="primary" class="example-margin"
+                                    [(ngModel)]="gLevel.isChecked"></mat-checkbox>
+                            </section>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </table>
+    </div>
+</div>

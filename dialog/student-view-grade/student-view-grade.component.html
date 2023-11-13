@@ -1,0 +1,21 @@
+<div class="w-full">
+  <h3><b>{{subject.subjectCode}}</b> {{subject.subjectName}}</h3>
+  <table class="w-full subj-table">
+    <tr class="font-bold">
+      <td>1st</td>
+      <td>2nd</td>
+      <td>3rd</td>
+      <td>4th</td>
+      <td>Final Grade</td>
+      <td>Remarks</td>
+    </tr>
+    <tr>
+      <td>{{grade.firstGrade}}</td>
+      <td>{{grade.secondGrade}}</td>
+      <td>{{grade.thirdGrade}}</td>
+      <td>{{grade.fourthGrade}}</td>
+      <td><b>{{grade.finalGrade}}</b></td>
+      <td [ngClass]="grade.remarks === 'Passed' ? 'text-green-600' : 'text-red-600'"><b>{{grade.remarks}}</b></td>
+    </tr>
+  </table>
+</div>

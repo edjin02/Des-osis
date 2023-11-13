@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.mat-radio-button.mat-radio-disabled.mat-radio-checked .mat-radio-outer-circle, .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle{
+    border-color:green !important;
+}
+.mat-radio-button.mat-radio-disabled .mat-radio-ripple .mat-ripple-element, .mat-radio-button.mat-radio-disabled .mat-radio-inner-circle{
+    border-color: green !important;
+}
+.mat-radio-button.mat-primary .mat-radio-inner-circle, .mat-radio-button.mat-primary .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-primary:active .mat-radio-persistent-ripple{
+    background-color: green !important;
+}

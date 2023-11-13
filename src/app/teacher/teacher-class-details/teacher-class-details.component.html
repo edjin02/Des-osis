@@ -1,0 +1,46 @@
+<app-teacher-head></app-teacher-head>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened><app-teacher-nav></app-teacher-nav></mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <div class="loading-page" *ngIf="isLoad">
+        <mat-spinner></mat-spinner>
+      </div>
+      <h1>Class Details</h1>
+      <div class="my-4">
+        <button mat-button routerLink="/teacher/subjects"><< Return to Subject Advisory</button>
+        <div class="my-4">
+        <h3>Subject : <b>{{subjectName}}</b></h3>
+        <h4>Teacher : <b>{{teacherName}}</b></h4>
+        </div>
+        <div *ngIf="alertSave" class="bg-green-200 text-green-600 px-4 py-2 my-2">Record has been Updated!</div>
+        <table class="w-full table-auto border grade-table">
+            <tr class="border text-center font-extrabold">
+              <td rowspan="2">Full Name</td>
+              <td colspan="4">Quarter</td>
+              <td rowspan="2">Final Grade</td>
+              <td rowspan="2">Remarks</td>
+            </tr>
+            <tr class="border text-center font-extrabold">
+              <td>1st</td>
+              <td>2nd</td>
+              <td>3rd</td>
+              <td>4th</td>
+            </tr>
+            <ng-container *ngFor="let st of stListings; let i = index;">
+              <tr>
+                <td>{{st.lastName +", "+ st.firstName}}</td>
+                <td> <input type="number" (change)="finalGrade(i, $event, 1)" class="py-4 px-2 w-full" max="100" min="0" [(ngModel)]="st.firstGrade"></td>
+                <td> <input type="number" (change)="finalGrade(i, $event, 2)" class="py-4 px-2 w-full" max="100" min="0" [(ngModel)]="st.secondGrade"></td>
+                <td> <input type="number" (change)="finalGrade(i, $event, 3)" class="py-4 px-2 w-full" max="100" min="0" [(ngModel)]="st.thirdGrade"></td>
+                <td> <input type="number" (change)="finalGrade(i, $event, 4)" class="py-4 px-2 w-full" max="100" min="0" [(ngModel)]="st.fourthGrade"></td>
+                <td> <input readonly="true" type="number" class="py-4 px-2 w-full" max="100" min="0" [(ngModel)]="st.finalGrade"></td>
+                <td> <input type="text" [(ngModel)]="st.remarks"></td>
+              </tr>
+            </ng-container>
+        </table>
+        <div class="text-right my-4"><button (click)="saveGrades()" mat-button class="bg-green-500 text-neutral-50">Save</button></div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

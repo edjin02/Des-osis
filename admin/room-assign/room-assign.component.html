@@ -1,0 +1,134 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <h1>Class List</h1>
+      <div class="grid grid-cols-3 gap-1">
+        <ng-container *ngFor="let gLevel of gradeList;">
+          <div class="border-2 rounded-lg pb-8">
+            <div class="text-center">
+              <h2 class="w-full rounded-t-lg bg-green-800 text-neutral-50">Grade {{gLevel.gradeLevelName}} </h2>
+            </div>
+            <div class="px-2 text-sm mb-2">
+              <button mat-button class="bg-gray-400 text-neutral-50"
+                [routerLink]="['/admin/new-room/', gLevel.id,'new']">Add
+                Class</button>
+            </div>
+            <!-- CLASS LIST -->
+            <table class="w-full">
+              <tr class="text-center border">
+                <td>Section</td>
+                <td>Adviser</td>
+                <td>Enrolled Students</td>
+                <td></td>
+              </tr>
+              <ng-container *ngFor="let cls of gLevel.classList">
+                <tr class="text-center border py-2">
+                  <td>{{cls?.sectionName}}</td>
+                  <td><b>{{cls?.adviserName}}</b></td>
+                  <td> <b>{{cls?.students?.length}}</b></td>
+                  <td><button class="rounded p-2 text-sm bg-green-500 text-neutral-50"
+                      (click)="view(viewAssign, cls)">View</button></td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+<ng-template #viewAssign>
+  <div class="w-full text-right flex gap-2" >
+    <div class="w-5/6"></div>
+    <div>
+    <button mat-button class="bg-green-800 text-neutral-50" (click)="editMe(classView.gradeLevelId,classView.id)">Edit
+      Class</button>
+      </div>
+      <div>
+
+      <button mat-button class="bg-green-800 mx-2 text-neutral-50" (click)="printMe()">Print</button>
+      </div>
+  </div>
+
+  <div id="printclasstable">
+    <div class="print-header">
+      <h2>Class Details</h2>
+      <p>Level: Grade {{classView.gradeLevelName}} | Section: {{classView.sectionName}} | Adviser: {{classView.adviserName}}</p>
+    </div>
+
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Adviser</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let subj of classView.subjects">
+          <tr class="print-row">
+            <td>{{subj.subjectName}}</td>
+            <td>{{subj.fullName}}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <div class="row">
+      <div class="table-container">
+        <h2 class="print-header"></h2>
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th>LRN</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let student of classView.students">
+              <tr *ngIf="student.gender === 'Female'" class="print-row female-row">
+                <td>{{student.controlNumber}}</td>
+                <td>{{student.lastName}}</td>
+                <td>{{student.firstName}} {{student.middleName}}</td>
+                <td>{{student.gender}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <h2 class="print-header"></h2>
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th>LRN</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let student of classView.students">
+              <tr *ngIf="student.gender === 'Male'" class="print-row male-row">
+                <td>{{student.controlNumber}}</td>
+                <td>{{student.lastName}}</td>
+                <td>{{student.firstName}} {{student.middleName}}</td>
+                <td>{{student.gender}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-template>

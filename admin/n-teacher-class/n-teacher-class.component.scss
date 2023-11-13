@@ -1,0 +1,83 @@
+/* Set global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Define styles for the main container */
+.mat-drawer-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Define styles for the sidebar */
+.mat-drawer {
+  width: 250px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Define styles for the sidebar content */
+.app-admin-nav {
+  padding: 20px;
+}
+
+/* Define styles for the main content area */
+.mat-drawer-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Define styles for the headings */
+h4, h1 {
+  font-weight: bold;
+  margin-top: 0;
+}
+
+/* Define styles for the last update text */
+.text-italic {
+  font-style: italic;
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Define styles for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Define styles for the table header */
+table tr th {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+/* Define styles for the table cells */
+table tr td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+/* Define styles for the checkboxes */
+mat-checkbox {
+  margin: 0;
+}
+
+/* Define styles for the save button */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Define styles for the disabled checkboxes */
+.disabled-bg-red-500 {
+  background-color: #FF0000 !important;
+}

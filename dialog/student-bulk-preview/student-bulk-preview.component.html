@@ -1,0 +1,23 @@
+<div class="w-full">
+  <table class="w-full border">
+    <tr class="border">
+      <td class="border p-2"><input type="checkbox" [checked]="selectAll" (change)="getChecked()"></td>
+      <td class="border p-2">LRN</td>
+      <td class="border p-2">Full Name</td>
+      <td class="border p-2">Grade Level</td>
+    </tr>
+    <tr class="border" *ngFor="let info of studentListing;let i = index">
+      <td class="border p-2"><input type="checkbox" [(ngModel)]="info.selected" [checked]="info.selected"></td>
+      <td class="border p-2">{{ info.controlNumber}} </td>
+      <td class="border p-2">{{ info.lastName }}, {{ info.firstName}} </td>
+      <td class="border p-2">Grade {{ info.gradeLevelName }}</td>
+    </tr>
+
+  </table>
+  <div class="text-right">
+    <span class="mx-2"><button class="bg-gray-500 text-neutral-50" mat-button
+        (click)="dialogRef.close(null)">Cancel</button></span>
+    <span class="mx-2"><button class="bg-blue-500 text-neutral-50" mat-button
+        (click)="selectUnselect()">Confirm</button></span>
+  </div>
+</div>

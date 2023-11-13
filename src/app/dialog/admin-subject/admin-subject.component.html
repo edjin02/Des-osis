@@ -1,0 +1,30 @@
+<form class="grade-form p-2">
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label>Subject Code</mat-label>
+    <input [(ngModel)]="subjectCode" name="subjectCode" matInput placeholder="Code">
+  </mat-form-field>
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label>Subject Name</mat-label>
+    <input [(ngModel)]="subjectName" name="subjectName" matInput placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label>Subject Description</mat-label>
+    <textarea [(ngModel)]="subjectDescription" name="subjectDescription" matInput placeholder="Description"></textarea>
+  </mat-form-field>
+  <ng-container *ngIf="_data.fromNew==false">
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label>Grade Level</mat-label>
+    <mat-select [(ngModel)]="gradeLevel" name="gradeLevel">
+      <mat-option *ngFor="let grade of _data.gradeList" [value]="grade.id">
+        Grade {{grade.gradeLevelName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-container>
+
+  <div class="my-2 text-right mr-4">
+    <button mat-button class="bg-blue-500 text-neutral-50" (click)="saveSubj()">Save</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </div>
+</form>

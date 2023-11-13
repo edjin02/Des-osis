@@ -1,0 +1,49 @@
+<div class="text-right py-2">
+  <span class="mx-2">
+    <button class="text-gray-500 text-neutral-50" mat-button (click)="dialogRef.close(null)">Close</button>
+  </span>
+</div>
+<mat-form-field class="w-full" appearance="standard">
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+<div class="text-center px-4 py-2 my-2 bg-red-200 text-red-600" *ngIf="studentListing.length === 0"> No Students
+  Available</div>
+<table mat-table [dataSource]="dataSource" matSort class="w-full">
+  <ng-container matColumnDef="checkbox">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element">
+      <section class="example-section">
+        <mat-checkbox [(ngModel)]="element.isSelected" class="example-margin"></mat-checkbox>
+      </section>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="controlNumber">
+    <th mat-header-cell *matHeaderCellDef> LRN </th>
+    <td mat-cell *matCellDef="let element"> {{element.controlNumber}} </td>
+  </ng-container>
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> First Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="gender">
+    <th mat-header-cell *matHeaderCellDef> Gender </th>
+    <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div class="text-right py-2">
+  <span class="mx-2">
+    <button class="text-gray-500 text-neutral-50" mat-button (click)="dialogRef.close(null)">Close</button>
+  </span>
+  <button class="bg-blue-500 text-neutral-50" mat-button *ngIf="studentListing.length !== 0"
+    (click)="getSelectedData(dataSource.filteredData)">Confirm</button>
+</div>

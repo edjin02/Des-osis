@@ -1,0 +1,10 @@
+.example-container {
+  width: 100%;
+  height: 1080px;
+}
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+.mat-radio-button.mat-radio-disabled.mat-radio-checked .mat-radio-outer-circle{
+  border-color: red !important;
+}

@@ -1,0 +1,119 @@
+<app-admin-head></app-admin-head>
+<mat-drawer-container class="w-full h-screen">
+    <mat-drawer mode="side" opened>
+        <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="w-full p-8">
+            <div class="w-full">
+                <span class="text-md" [routerLink]="['/admin/schedule/']">Back to Listing</span>
+                <p class="my-4 pt-4 text-xl">Class Schedule</p>
+
+                <div class="flex w-full gap-2 py-2 ">
+                    <div class="flex text-lg w-1/3"><b>Grade Level: </b><span class="mx-4"> {{classDetails?.gradeLevelName}}</span></div>
+                    <div class="flex text-lg w-1/3"><b>Section: </b><span class="mx-4"> {{classDetails?.sectionName}}</span></div>
+                    <div class="flex text-lg w-1/3"><b>Adviser: </b><span class="mx-4"> {{classDetails?.adviserName}}</span></div>
+                </div>
+                <div class="flex w-full py-4">
+                    <div class="w-5/6 text-lg">
+                        Schedule Template: <select class="w-1/4 mx-4 p-2 border-gray-400 border-2 rounded" (change)="selectTemplate($event)" [(ngModel)]="selectedTemplate">
+                            <ng-container *ngFor="let item of templateList">
+                                <option [value]="item.id">{{item.tempName}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="w-1/6 text-right ">
+                        <button class="w-full p-2 text-green-900 font-bold border-green-900 border rounded disabled:bg-gray-400 disabled:text-white" [disabled]="isView" (click)="saveSched()">Save</button>
+                    </div>
+                </div>
+
+            </div>
+            <table class="w-full border p-8 border">
+                <thead class="border">
+                    <tr class="text-center">
+                        <td class="border p-2 text-white bg-green-800 text-md"></td>
+                        <td class="border p-2 text-white bg-green-800 text-md">MON</td>
+                        <td class="border p-2 text-white bg-green-800 text-md">TUE</td>
+                        <td class="border p-2 text-white bg-green-800 text-md">WED</td>
+                        <td class="border p-2 text-white bg-green-800 text-md">THU</td>
+                        <td class="border p-2 text-white bg-green-800 text-md">FRI</td>
+                    </tr>
+                </thead>
+                <tbody class="border">
+                    <ng-container *ngFor="let row of schedRow;let i = index">
+                        <tr class="text-center">
+                            <td class="border py-2">{{row.timeFrom}} - {{row.timeTo}}</td>
+                            <td class="border py-2">
+                                <select class="w-3/4" (change)="getId(i,row,$event)" [(ngModel)]="row.mon">
+                                    <option [value]="null" disabled="true"></option>
+                                    <ng-container *ngFor="let sub of subjects">
+                                        <optgroup [label]="sub.fullName">
+                                            <option class="disabled:bg-gray-200" [value]="sub.id" [disabled]="sub.isEnabled!==true"><b>
+                                                    <hr />{{sub.subjectName}}
+                                                </b></option>
+                                        </optgroup>
+                                    </ng-container>
+                                </select>
+                                <button [disabled]="row.mon === null" (click)="resetList('mon', row.mon, i)" class="w-1/4 text-red-400 disabled:text-gray-100"> <mat-icon class="text-md">close</mat-icon></button>
+
+                            </td>
+                            <td class="border py-2">
+                                <select class="w-3/4" (change)="getId(i,row,$event)" [(ngModel)]="row.tue">
+                                    <option [value]="null" disabled="true"></option>
+                                    <ng-container *ngFor="let sub of subjects">
+                                        <optgroup [label]="sub.fullName">
+                                            <option class="disabled:bg-gray-200" [value]="sub.id" [disabled]="sub.isEnabled!==true"><b>
+                                                    <hr />{{sub.subjectName}}
+                                                </b></option>
+                                        </optgroup>
+                                    </ng-container>
+                                </select>
+                                <button [disabled]="row.tue === null" (click)="resetList('tue', row.tue, i)" class="w-1/4 text-red-400 disabled:text-gray-100"> <mat-icon class="text-md">close</mat-icon></button>
+                            </td>
+                            <td class="border py-2">
+                                <select class="w-3/4" (change)="getId(i,row,$event)" [(ngModel)]="row.wed">
+                                    <option [value]="null" disabled="true"></option>
+                                    <ng-container *ngFor="let sub of subjects">
+                                    <optgroup [label]="sub.fullName">
+                                            <option class="disabled:bg-gray-200" [value]="sub.id" [disabled]="sub.isEnabled!==true"><b>
+                                                    <hr />{{sub.subjectName}}
+                                                </b></option>
+                                        </optgroup>    
+                                    </ng-container>
+                                </select>
+                                <button [disabled]="row.wed === null" (click)="resetList('wed', row.wed, i)" class="w-1/4 text-red-400 disabled:text-gray-100"> <mat-icon class="text-md">close</mat-icon></button>
+                            </td>
+                            <td class="border py-2">
+                                <select class="w-3/4" (change)="getId(i,row,$event)" [(ngModel)]="row.thu">
+                                    <option [value]="null" disabled="true"></option>
+                                    <ng-container *ngFor="let sub of subjects">
+                                    <optgroup [label]="sub.fullName">
+                                            <option class="disabled:bg-gray-200" [value]="sub.id" [disabled]="sub.isEnabled!==true"><b>
+                                                    <hr />{{sub.subjectName}}
+                                                </b></option>
+                                        </optgroup>    
+                                    </ng-container>
+                                </select>
+                                <button [disabled]="row.thu === null" (click)="resetList('thu', row.thu, i)" class="w-1/4 text-red-400 disabled:text-gray-100"> <mat-icon class="text-md">close</mat-icon></button>
+                            </td>
+                            <td class="border py-2">
+                                <select class="w-3/4" (change)="getId(i,row,$event)" [(ngModel)]="row.fri">
+                                    <option [value]="null" disabled="true"></option>
+                                    <ng-container *ngFor="let sub of subjects">
+                                    <optgroup [label]="sub.fullName">
+                                            <option class="disabled:bg-gray-200" [value]="sub.id" [disabled]="sub.isEnabled!==true"><b>
+                                                    <hr />{{sub.subjectName}}
+                                                </b></option>
+                                        </optgroup>    
+                                    </ng-container>
+                                </select>
+                                <button [disabled]="row.fri === null" (click)="resetList('fri', row.fri, i)" class="w-1/4 text-red-400 disabled:text-gray-100"> <mat-icon class="text-md">close</mat-icon></button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

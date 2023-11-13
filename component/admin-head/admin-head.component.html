@@ -1,0 +1,32 @@
+<nav class="bg-white text-green-800 border">
+  <div class="px-2 sm:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between h-16">
+      <div class="flex items-center justify-start">
+        <div class="flex w-64 items-center my-auto">
+          <img class="h-12 w-12 mx-4" src="/assets/logo.png" alt="Workflow">
+          <h2 class="items-center">DES - OSIS</h2>
+        </div>
+        <div>
+          <span class="mx-4 text-lg">School Year : {{activeSy?.schoolYear}}</span>
+          <!-- <div class="flex space-x-4">
+            <a routerLink="/admin/grade-level" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+
+            <a routerLink="/admin/grade-level" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Reports</a>
+            <span class="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">School Year: 2022-2023</span>
+          </div> -->
+        </div>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <span class="py-12 mx-2">{{adminSession.firstName}}</span>
+        <!-- Profile dropdown -->
+        <button mat-mini-fab color="light" [matMenuTriggerFor]="menu"><mat-icon>account_box</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item><mat-icon>account_circle</mat-icon>Edit Profile </button>
+          <button mat-menu-item><mat-icon>manage_accounts</mat-icon> Activity Logs </button>
+          <button (click)="logOut()" mat-menu-item><mat-icon>logout</mat-icon> Logout </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu, show/hide based on menu state. -->
+</nav>

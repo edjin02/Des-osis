@@ -1,0 +1,84 @@
+.example-container {
+  width: 100%;
+  height: 1080px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-container {
+  flex-basis: 48%;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.female-row {
+  background-color: #f2e6ff; /* Light purple background for female rows */
+}
+
+.male-row {
+  background-color: #e6f2ff; /* Light blue background for male rows */
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+@media print {
+  body * {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  #print-area * {
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+}
+
+.print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .print-table th, .print-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .print-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .print-table .female-row {
+    background-color: #fce8ec;
+  }
+
+  .print-table .male-row {
+    background-color: #e8f5fd;
+  }
+
+  .print-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+

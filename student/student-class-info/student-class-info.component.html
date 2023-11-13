@@ -1,0 +1,39 @@
+<app-student-head></app-student-head>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened><app-student-nav></app-student-nav></mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <h1>Class</h1>
+      <table class="w-full text-lg">
+        <tr>
+          <td class="font-bold">Grade Level</td>
+          <td>Grade {{classInfoDetails?.gradeLevelName}}</td>
+          <td class="font-bold">Section</td>
+          <td>{{classInfoDetails?.section}}</td>
+        </tr>
+        <tr>
+          <td class="font-bold">School Year</td>
+          <td>{{activeYear?.schoolYear}}</td>
+          <td class="font-bold">Adviser</td>
+          <td>{{classInfoDetails?.adviserName}}</td>
+        </tr>
+      </table>
+      <table class="mt-4 w-full grades">
+        <tr class="font-bold">
+          <td>Code</td>
+          <td>Subject</td>
+          <td>Teacher</td>
+          <td>-</td>
+        </tr>
+        <ng-container *ngFor="let sf of classInfoDetails?.subjects">
+          <tr>
+            <td>{{sf.subjectCode}}</td>
+            <td>{{sf.subjectName}}</td>
+            <td><b>{{sf.teacherFullName}}</b></td>
+            <td class="text-center"><button class="bg-green-200 text-green-800" (click)="viewDialog(sf)" mat-button>View Grades</button></td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

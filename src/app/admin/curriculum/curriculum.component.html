@@ -1,0 +1,49 @@
+<app-admin-head></app-admin-head>
+<mat-drawer-container class="w-full h-screen">
+  <mat-drawer mode="side" opened>
+  <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+  </div>
+</mat-drawer>
+  <mat-drawer-content>
+    <div class="w-full p-8">
+        <h1>Curriculum Module</h1>
+        <div class="my-4">
+          <button mat-button class="bg-green-800 text-neutral-50 text-md" (click)="openDialog(null)"><mat-icon>add</mat-icon> New</button>
+        </div>
+        <mat-form-field class="w-full" appearance="standard">
+          <mat-label>Filter/Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="w-full">
+          <ng-container matColumnDef="curriculumId">
+            <th mat-header-cell sortActionDescription="Sort by number" *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element;let i = index">
+              <span class="px-4"><button (click)="delete(element.id)"><mat-icon>delete_sweep</mat-icon></button></span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="curriculumCode">
+            <th mat-header-cell *matHeaderCellDef> Curriculum Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.curriculumCode}} </td>
+          </ng-container>
+          <ng-container matColumnDef="curriculumYear">
+            <th mat-header-cell *matHeaderCellDef> Curriculum Year </th>
+            <td mat-cell *matCellDef="let element"> {{element.curriculumYear}} </td>
+          </ng-container>
+          <ng-container matColumnDef="curriculumDate">
+            <th mat-header-cell *matHeaderCellDef> Curriculum Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdOn.toDate() | date: 'mediumDate'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="mx-2"><button mat-button class="bg-blue-500 text-neutral-50" [routerLink]="['/admin/view-curriculum/',element.id]">View</button></span>
+              <span class="mx-2" *ngIf="element.isActive === false;else curActive"><button mat-button class="bg-gray-500 text-neutral-50" (click)="setActiveCurriculum(element)">Set As Active</button></span>
+              <ng-template #curActive><span class="mx-2"><button mat-button class="bg-green-500 text-neutral-50">Active</button></span></ng-template>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

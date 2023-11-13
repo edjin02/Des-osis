@@ -1,0 +1,74 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+  <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+  </div>
+</mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <a mat-button routerLink="/admin/room-assign" class="text-sm"><< Return to Class List</a>
+      <h1>New Class for Grade {{gradeLevelName}}</h1>
+      <mat-form-field class="w-1/3 px-2" appearance="fill">
+        <mat-label>Section Name</mat-label>
+        <input [(ngModel)]="sectionName" name="sectionName" matInput placeholder="">
+      </mat-form-field>
+      <mat-form-field class="w-1/2 px-2" appearance="fill" (click)="adviserDialog()">
+        <mat-label>Class Adviser</mat-label>
+        <input [(ngModel)]="adviserName" name="adviserName" matInput>
+      </mat-form-field>
+      <hr/>
+      <h2>Subject Teacher</h2>
+      <ng-container *ngIf="adviserName === null; else subjectSection">
+        <small class="text-blue-500">Please Select a Class Adviser</small>
+        <div class="grid grid-cols-2">
+        <ng-container *ngFor="let subj of subjectList; let i = index">
+            <div class="p-4">
+              <label>{{subj.subjectName}}</label>
+            </div>
+        </ng-container>
+      </div>
+      </ng-container>
+      <ng-template #subjectSection>
+        <div class="my-2"></div>
+        <ng-container *ngFor="let subj of subjectList; let i = index">
+            <mat-form-field class="w-1/2 px-2" appearance="fill" (click)="subjAdviserDialog(i, subj.id)">
+              <mat-label>{{subj.subjectName}}</mat-label>
+                <input [(ngModel)]="subj.teacherFullName"name="teacherInfo" matInput >
+            </mat-form-field>
+        </ng-container>
+      </ng-template>
+      <h2>Students</h2>
+      <div class="my-2"></div>
+
+      <div class="w-full mb-12">
+        <button mat-button class="bg-green-400 text-neutral-50" [disabled]="adviserName===null"(click)="studentSubjDialog()">Add Student</button>
+        <div class="flex justify-center">
+          <div class="w-1/2">
+          <table class="w-full mt-4 border">
+            <thead>
+              <tr class="py-2">
+              <th class="border py-2">Last Name</th>
+              <th class="border py-2">First Name</th>
+            </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let students of addedStudentList">
+                <tr class="py-2">
+                  <td class="border py-2">{{students.lastName}}</td>
+                  <td class="border py-2">{{students.firstName}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+      <div class="my-2"></div>
+      <div class="w-full text-right mx-29">
+        <span class="mx-4"><button mat-button routerLink="/admin/room-assign" class="bg-gray-200 text-lg">Cancel</button></span>
+        <button mat-button class="bg-blue-500 text-neutral-50 text-lg" [disabled]="addedStudentList.length === 0" (click)="saveClass()">Save Class Room</button>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

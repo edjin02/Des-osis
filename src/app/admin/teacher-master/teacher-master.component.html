@@ -1,0 +1,35 @@
+<app-admin-head></app-admin-head>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+  <div class="h-full bg-green-800"><app-admin-nav></app-admin-nav>
+  </div>
+</mat-drawer>
+  <mat-drawer-content>
+    <div class="m-12">
+      <h1>Teacher List</h1>
+      <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell mat-sort-header sortActionDescription="Sort by number" *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="gradeLevel">
+          <th mat-header-cell *matHeaderCellDef> Grade Advisory</th>
+          <td mat-cell *matCellDef="let element"> {{element.info.gradeLevel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef><span class="mx-12"> Action</span> </th>
+          <td mat-cell *matCellDef="let element">
+          <span class="mx-1"><a [routerLink]="['/admin/new-assign/', element.userId]" mat-button class="bg-blue-500 text-slate-50">Assign Subject</a></span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
